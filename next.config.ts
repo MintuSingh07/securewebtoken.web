@@ -16,13 +16,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  outputFileTracingRoot: path.resolve(__dirname, '../../'),
+  // Removed outputFileTracingRoot as it may cause issues on Vercel
   typescript: {
     ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // Keep turbopack config for dev, but it won't affect standard webpack production builds
   turbopack: {
     rules: {
       "*.{jsx,tsx}": {
