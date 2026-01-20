@@ -4,15 +4,11 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ChevronRight, ShieldCheck, Fingerprint, Lock, Copy, Check, Shield, Key, KeyRound, Binary, Database, Server, Cpu, Wifi, Cloud, Zap, Hash, Code, Terminal } from "lucide-react";
 
-// Floating icon component
-function FloatingIcon({ icon: Icon, className, delay = 0, duration = 4, mouseX, mouseY }: { icon: React.ElementType; className: string; delay?: number; duration?: number; mouseX?: any; mouseY?: any }) {
-    const x = useTransform(mouseX || 0, [0, 2000], [15, -15]);
-    const y = useTransform(mouseY || 0, [0, 2000], [15, -15]);
-
+// Floating icon component - optimized
+function FloatingIcon({ icon: Icon, className, delay = 0, duration = 4 }: { icon: React.ElementType; className: string; delay?: number; duration?: number }) {
     return (
         <motion.div
             className={`absolute ${className}`}
-            style={{ x, y }}
             initial={{ opacity: 0, scale: 0 }}
             animate={{
                 opacity: [0.2, 0.5, 0.2],
@@ -150,7 +146,7 @@ function CursorLight() {
                 translateY: '-50%',
             }}
         >
-            <div className="w-[500px] h-[500px] rounded-full bg-gradient-radial from-blue-500/20 via-blue-500/5 to-transparent blur-3xl" />
+            <div className="w-[400px] h-[400px] rounded-full bg-gradient-radial from-blue-500/10 via-blue-500/3 to-transparent blur-2xl" />
         </motion.div>
     );
 }
@@ -201,13 +197,8 @@ export function Hero() {
         { icon: Binary, className: "top-[15%] left-[8%]", delay: 0 },
         { icon: Database, className: "top-[25%] right-[12%]", delay: 0.5 },
         { icon: Server, className: "bottom-[30%] left-[5%]", delay: 1 },
-        { icon: Cpu, className: "top-[60%] right-[8%]", delay: 1.5 },
-        { icon: Wifi, className: "top-[40%] left-[15%]", delay: 2 },
-        { icon: Cloud, className: "bottom-[20%] right-[15%]", delay: 2.5 },
-        { icon: Zap, className: "top-[10%] right-[25%]", delay: 3 },
-        { icon: Hash, className: "bottom-[40%] left-[12%]", delay: 3.5 },
-        { icon: Code, className: "top-[70%] left-[20%]", delay: 4 },
-        { icon: Terminal, className: "bottom-[15%] left-[25%]", delay: 4.5 },
+        { icon: Cloud, className: "bottom-[20%] right-[15%]", delay: 1.5 },
+        { icon: Hash, className: "bottom-[40%] left-[12%]", delay: 2 },
     ];
 
     return (
@@ -221,11 +212,7 @@ export function Hero() {
             {/* Background Gradients */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                 <motion.div
-                    className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/20 blur-[120px] rounded-full"
-                    style={{
-                        x: useTransform(cursorX, [0, 2000], [20, -20]),
-                        y: useTransform(cursorY, [0, 2000], [20, -20]),
-                    }}
+                    className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 blur-[80px] rounded-full"
                     animate={{
                         scale: [1, 1.2, 1],
                         opacity: [0.2, 0.3, 0.2],
@@ -233,11 +220,7 @@ export function Hero() {
                     transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
                 />
                 <motion.div
-                    className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-500/10 blur-[120px] rounded-full"
-                    style={{
-                        x: useTransform(cursorX, [0, 2000], [-30, 30]),
-                        y: useTransform(cursorY, [0, 2000], [-30, 30]),
-                    }}
+                    className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-500/5 blur-[80px] rounded-full"
                     animate={{
                         scale: [1, 1.3, 1],
                         opacity: [0.1, 0.2, 0.1],
@@ -245,11 +228,7 @@ export function Hero() {
                     transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
                 />
                 <motion.div
-                    className="absolute top-[40%] left-[30%] w-[30%] h-[30%] bg-cyan-500/10 blur-[100px] rounded-full"
-                    style={{
-                        x: useTransform(cursorX, [0, 2000], [10, -10]),
-                        y: useTransform(cursorY, [0, 2000], [10, -10]),
-                    }}
+                    className="absolute top-[40%] left-[30%] w-[30%] h-[30%] bg-cyan-500/5 blur-[60px] rounded-full"
                     animate={{
                         scale: [1, 1.4, 1],
                         x: [0, 50, 0],
@@ -260,48 +239,38 @@ export function Hero() {
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
             </div>
 
-            {/* Binary rain effect */}
+            {/* Binary rain effect - reduced for performance */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {Array.from({ length: 20 }).map((_, i) => (
+                {Array.from({ length: 8 }).map((_, i) => (
                     <BinaryColumn key={i} index={i} />
                 ))}
             </div>
 
-            {/* Floating particles */}
+            {/* Floating particles - reduced for performance */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {Array.from({ length: 30 }).map((_, i) => (
+                {Array.from({ length: 12 }).map((_, i) => (
                     <Particle key={i} index={i} />
                 ))}
             </div>
 
-            {/* Floating icons */}
+            {/* Floating icons - reduced for performance */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 {floatingIcons.map((item, i) => (
-                    <FloatingIcon key={i} icon={item.icon} className={item.className} delay={item.delay} mouseX={cursorX} mouseY={cursorY} />
+                    <FloatingIcon key={i} icon={item.icon} className={item.className} delay={item.delay} />
                 ))}
             </div>
 
-            {/* Animated grid lines */}
+            {/* Animated grid lines - reduced for performance */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
                 <motion.div
-                    className="absolute top-0 left-[20%] w-px h-full bg-gradient-to-b from-transparent via-blue-500/20 to-transparent"
+                    className="absolute top-0 left-[30%] w-px h-full bg-gradient-to-b from-transparent via-blue-500/20 to-transparent"
                     animate={{ opacity: [0, 0.5, 0], scaleY: [0, 1, 0] }}
                     transition={{ duration: 4, repeat: Infinity, delay: 0 }}
                 />
                 <motion.div
-                    className="absolute top-0 left-[40%] w-px h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent"
-                    animate={{ opacity: [0, 0.5, 0], scaleY: [0, 1, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, delay: 1 }}
-                />
-                <motion.div
-                    className="absolute top-0 left-[60%] w-px h-full bg-gradient-to-b from-transparent via-blue-500/20 to-transparent"
+                    className="absolute top-0 left-[70%] w-px h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent"
                     animate={{ opacity: [0, 0.5, 0], scaleY: [0, 1, 0] }}
                     transition={{ duration: 4, repeat: Infinity, delay: 2 }}
-                />
-                <motion.div
-                    className="absolute top-0 left-[80%] w-px h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent"
-                    animate={{ opacity: [0, 0.5, 0], scaleY: [0, 1, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, delay: 3 }}
                 />
             </div>
 
@@ -462,7 +431,7 @@ export function Hero() {
                     transition={{ duration: 0.8, delay: 0.2 }}
                 >
                     <div className="relative w-full max-w-[400px] lg:max-w-[600px] mx-auto">
-                        <div className="absolute inset-0 bg-blue-500/20 blur-[100px] rounded-full" />
+                        <div className="absolute inset-0 bg-blue-500/10 blur-[60px] rounded-full" />
 
                         {/* Security Shield Visual */}
                         <div className="relative z-10 flex items-center justify-center min-h-[350px] lg:min-h-[500px]">
@@ -557,11 +526,7 @@ export function Hero() {
                                     y: useTransform(cursorY, [0, 2000], [10, -10]),
                                 }}
                             >
-                                <motion.div
-                                    className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-cyan-600/20 rounded-full blur-xl"
-                                    animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
-                                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                                />
+                                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-cyan-600/10 rounded-full blur-lg" />
                                 <div className="relative bg-zinc-900/80 border border-zinc-700 rounded-full w-full h-full flex items-center justify-center backdrop-blur-sm overflow-hidden">
                                     {/* Inner glow effect */}
                                     <motion.div
@@ -596,14 +561,9 @@ export function Hero() {
                                 className="absolute -top-4 lg:-top-8 right-2 lg:right-4 px-3 lg:px-4 py-2 lg:py-2.5 bg-zinc-900/90 border border-zinc-800 rounded-lg shadow-xl backdrop-blur-sm"
                                 animate={{ y: [0, -8, 0] }}
                                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                                whileHover={{ scale: 1.1, borderColor: 'rgba(34, 197, 94, 0.5)' }}
                             >
                                 <div className="flex items-center gap-2">
-                                    <motion.div
-                                        className="w-2 h-2 rounded-full bg-emerald-500"
-                                        animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
-                                        transition={{ duration: 1, repeat: Infinity }}
-                                    />
+                                    <div className="w-2 h-2 rounded-full bg-emerald-500" />
                                     <span className="text-xs font-mono text-zinc-400">AES-256</span>
                                 </div>
                             </motion.div>
@@ -612,15 +572,9 @@ export function Hero() {
                                 className="absolute -bottom-4 lg:-bottom-6 left-2 lg:left-4 px-3 lg:px-4 py-2 lg:py-2.5 bg-zinc-900/90 border border-blue-500/30 rounded-lg shadow-xl backdrop-blur-sm"
                                 animate={{ y: [0, 6, 0] }}
                                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                                whileHover={{ scale: 1.1, borderColor: 'rgba(59, 130, 246, 0.8)' }}
                             >
                                 <div className="flex items-center gap-2">
-                                    <motion.div
-                                        animate={{ rotate: [0, 360] }}
-                                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                                    >
-                                        <Lock className="w-3 h-3 text-blue-400" />
-                                    </motion.div>
+                                    <Lock className="w-3 h-3 text-blue-400" />
                                     <span className="text-xs font-mono text-zinc-400">encrypted</span>
                                 </div>
                             </motion.div>
@@ -629,15 +583,9 @@ export function Hero() {
                                 className="absolute top-1/3 -left-6 lg:-left-12 px-3 lg:px-4 py-2 lg:py-2.5 bg-zinc-900/90 border border-purple-500/30 rounded-lg shadow-xl backdrop-blur-sm hidden lg:flex"
                                 animate={{ x: [0, -6, 0] }}
                                 transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                                whileHover={{ scale: 1.1, borderColor: 'rgba(168, 85, 247, 0.8)' }}
                             >
                                 <div className="flex items-center gap-2">
-                                    <motion.div
-                                        animate={{ scale: [1, 1.2, 1] }}
-                                        transition={{ duration: 2, repeat: Infinity }}
-                                    >
-                                        <Fingerprint className="w-3 h-3 text-purple-400" />
-                                    </motion.div>
+                                    <Fingerprint className="w-3 h-3 text-purple-400" />
                                     <span className="text-xs font-mono text-zinc-400">device-bound</span>
                                 </div>
                             </motion.div>
@@ -646,15 +594,9 @@ export function Hero() {
                                 className="absolute bottom-1/3 -right-6 lg:-right-12 px-3 lg:px-4 py-2 lg:py-2.5 bg-zinc-900/90 border border-cyan-500/30 rounded-lg shadow-xl backdrop-blur-sm hidden lg:flex"
                                 animate={{ x: [0, 6, 0] }}
                                 transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
-                                whileHover={{ scale: 1.1, borderColor: 'rgba(34, 211, 238, 0.8)' }}
                             >
                                 <div className="flex items-center gap-2">
-                                    <motion.div
-                                        animate={{ rotate: [0, -15, 15, 0] }}
-                                        transition={{ duration: 2, repeat: Infinity }}
-                                    >
-                                        <Key className="w-3 h-3 text-cyan-400" />
-                                    </motion.div>
+                                    <Key className="w-3 h-3 text-cyan-400" />
                                     <span className="text-xs font-mono text-zinc-400">session</span>
                                 </div>
                             </motion.div>
