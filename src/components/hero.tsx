@@ -405,19 +405,13 @@ export function Hero() {
                             ].map((item, i) => (
                                 <motion.div
                                     key={i}
-                                    className="flex items-center gap-2 group cursor-default"
-                                    whileHover={{ scale: 1.05 }}
+                                    className="flex items-center gap-2 cursor-default"
                                     initial={{ opacity: 0, x: -10 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 1.3 + item.delay }}
                                 >
-                                    <motion.div
-                                        whileHover={{ rotate: 360 }}
-                                        transition={{ duration: 0.5 }}
-                                    >
-                                        <item.icon className="w-5 h-5 text-blue-400 group-hover:text-cyan-400 transition-colors" />
-                                    </motion.div>
-                                    <span className="text-sm font-medium text-zinc-400 group-hover:text-zinc-300 transition-colors">{item.text}</span>
+                                    <item.icon className="w-5 h-5 text-blue-400" />
+                                    <span className="text-sm font-medium text-zinc-400">{item.text}</span>
                                 </motion.div>
                             ))}
                         </motion.div>
