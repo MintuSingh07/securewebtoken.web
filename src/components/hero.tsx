@@ -318,12 +318,7 @@ export function Hero() {
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
                         >
-                            <motion.div
-                                animate={{ rotate: 360 }}
-                                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                            >
-                                <Lock className="w-3 h-3" />
-                            </motion.div>
+                            <Lock className="w-3 h-3" />
                             AES-256-GCM Encrypted
                         </motion.span>
 
@@ -397,13 +392,7 @@ export function Hero() {
                             whileHover={{ borderColor: 'rgba(59, 130, 246, 0.5)' }}
                         >
                             <code className="text-sm font-mono text-zinc-400">
-                                <span className="text-zinc-500">$</span> npm install <motion.span
-                                    className="text-blue-400"
-                                    animate={{ opacity: [1, 0.5, 1] }}
-                                    transition={{ duration: 2, repeat: Infinity }}
-                                >
-                                    secure-web-token
-                                </motion.span>
+                                <span className="text-zinc-500">$</span> npm install <span className="text-blue-400">secure-web-token</span>
                             </code>
                             <button
                                 onClick={handleCopy}
