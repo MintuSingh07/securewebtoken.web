@@ -6,6 +6,14 @@ import { ChevronRight, ShieldCheck, Fingerprint, Lock, Copy, Check, Shield, Key,
 
 // Floating icon component - optimized
 function FloatingIcon({ icon: Icon, className, delay = 0, duration = 4 }: { icon: React.ElementType; className: string; delay?: number; duration?: number }) {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) return null;
+
     return (
         <motion.div
             className={`absolute ${className}`}
@@ -173,12 +181,14 @@ function HexGrid() {
 
 export function Hero() {
     const [copied, setCopied] = useState(false);
+    const [mounted, setMounted] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
 
     const cursorX = useMotionValue(0);
     const cursorY = useMotionValue(0);
 
     useEffect(() => {
+        setMounted(true);
         const handleMouseMove = (e: MouseEvent) => {
             cursorX.set(e.clientX);
             cursorY.set(e.clientY);
@@ -196,9 +206,7 @@ export function Hero() {
     const floatingIcons = [
         { icon: Binary, className: "top-[15%] left-[8%]", delay: 0 },
         { icon: Database, className: "top-[25%] right-[12%]", delay: 0.5 },
-        { icon: Server, className: "bottom-[30%] left-[5%]", delay: 1 },
-        { icon: Cloud, className: "bottom-[20%] right-[15%]", delay: 1.5 },
-        { icon: Hash, className: "bottom-[40%] left-[12%]", delay: 2 },
+        { icon: Cloud, className: "bottom-[20%] right-[15%]", delay: 1 },
     ];
 
     return (
@@ -209,68 +217,74 @@ export function Hero() {
             {/* Hexagon grid background */}
             <HexGrid />
 
-            {/* Background Gradients */}
+            {/* Enhanced Background Gradients */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                {/* Base gradient mesh */}
+                <div className="absolute inset-0 bg-linear-to-br from-blue-950/40 via-black to-cyan-950/30" />
+
+                {/* Radial gradients from corners */}
+                <div className="absolute top-0 left-0 w-[60%] h-[60%] bg-gradient-radial from-blue-600/15 via-blue-600/5 to-transparent blur-3xl" />
+                <div className="absolute bottom-0 right-0 w-[60%] h-[60%] bg-gradient-radial from-cyan-600/15 via-cyan-600/5 to-transparent blur-3xl" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] bg-gradient-radial from-blue-500/10 via-transparent to-transparent blur-2xl" />
+
+                {/* Animated subtle pulse */}
                 <motion.div
-                    className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 blur-[80px] rounded-full"
+                    className="absolute top-[20%] right-[15%] w-[40%] h-[40%] bg-gradient-radial from-blue-500/20 via-blue-500/5 to-transparent blur-[100px] rounded-full"
                     animate={{
                         scale: [1, 1.2, 1],
-                        opacity: [0.2, 0.3, 0.2],
+                        opacity: [0.3, 0.5, 0.3],
                     }}
                     transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
                 />
                 <motion.div
-                    className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-500/5 blur-[80px] rounded-full"
+                    className="absolute bottom-[25%] left-[20%] w-[35%] h-[35%] bg-gradient-radial from-cyan-500/15 via-cyan-500/3 to-transparent blur-[100px] rounded-full"
                     animate={{
                         scale: [1, 1.3, 1],
-                        opacity: [0.1, 0.2, 0.1],
+                        opacity: [0.2, 0.4, 0.2],
                     }}
                     transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
                 />
-                <motion.div
-                    className="absolute top-[40%] left-[30%] w-[30%] h-[30%] bg-cyan-500/5 blur-[60px] rounded-full"
-                    animate={{
-                        scale: [1, 1.4, 1],
-                        x: [0, 50, 0],
-                        opacity: [0.05, 0.15, 0.05],
-                    }}
-                    transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-                />
+
+                {/* Diagonal gradient overlay */}
+                <div className="absolute inset-0 bg-linear-to-tr from-blue-950/20 via-transparent to-cyan-950/20" />
+
+                {/* Texture overlay */}
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
             </div>
 
             {/* Binary rain effect - reduced for performance */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {Array.from({ length: 8 }).map((_, i) => (
-                    <BinaryColumn key={i} index={i} />
-                ))}
-            </div>
+            {mounted && (
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    {Array.from({ length: 4 }).map((_, i) => (
+                        <BinaryColumn key={i} index={i} />
+                    ))}
+                </div>
+            )}
 
             {/* Floating particles - reduced for performance */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {Array.from({ length: 12 }).map((_, i) => (
-                    <Particle key={i} index={i} />
-                ))}
-            </div>
+            {mounted && (
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    {Array.from({ length: 6 }).map((_, i) => (
+                        <Particle key={i} index={i} />
+                    ))}
+                </div>
+            )}
 
             {/* Floating icons - reduced for performance */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {floatingIcons.map((item, i) => (
-                    <FloatingIcon key={i} icon={item.icon} className={item.className} delay={item.delay} />
-                ))}
-            </div>
+            {mounted && (
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    {floatingIcons.map((item, i) => (
+                        <FloatingIcon key={i} icon={item.icon} className={item.className} delay={item.delay} />
+                    ))}
+                </div>
+            )}
 
             {/* Animated grid lines - reduced for performance */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
                 <motion.div
-                    className="absolute top-0 left-[30%] w-px h-full bg-gradient-to-b from-transparent via-blue-500/20 to-transparent"
+                    className="absolute top-0 left-[50%] w-px h-full bg-linear-to-b from-transparent via-blue-500/20 to-transparent"
                     animate={{ opacity: [0, 0.5, 0], scaleY: [0, 1, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, delay: 0 }}
-                />
-                <motion.div
-                    className="absolute top-0 left-[70%] w-px h-full bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent"
-                    animate={{ opacity: [0, 0.5, 0], scaleY: [0, 1, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, delay: 2 }}
+                    transition={{ duration: 4, repeat: Infinity }}
                 />
             </div>
 
@@ -301,7 +315,7 @@ export function Hero() {
                             </motion.span>
                             <br />
                             <motion.span
-                                className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-400 bg-[length:200%_auto]"
+                                className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-cyan-300 to-blue-400 bg-size-[200%_auto]"
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{
                                     opacity: 1,
@@ -354,11 +368,15 @@ export function Hero() {
                         </motion.div>
 
                         <motion.div
-                            className="mt-8 px-3 py-2 bg-zinc-900/50 border border-zinc-800 rounded-lg inline-flex items-center gap-3 backdrop-blur-sm"
+                            className="mt-8 px-3 py-2 bg-zinc-900/50 border border-zinc-800 rounded-lg inline-flex items-center gap-3 backdrop-blur-sm group transition-all duration-300"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 1.1 }}
-                            whileHover={{ borderColor: 'rgba(59, 130, 246, 0.5)' }}
+                            whileHover={{
+                                borderColor: 'rgba(59, 130, 246, 1)',
+                                boxShadow: '0 0 25px rgba(59, 130, 246, 0.2)',
+                                scale: 1.02,
+                            }}
                         >
                             <code className="text-sm font-mono text-zinc-400">
                                 <span className="text-zinc-500">$</span> npm install <span className="text-blue-400">secure-web-token</span>
@@ -520,11 +538,11 @@ export function Hero() {
                                     y: useTransform(cursorY, [0, 2000], [10, -10]),
                                 }}
                             >
-                                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-cyan-600/10 rounded-full blur-lg" />
+                                <div className="absolute inset-0 bg-linear-to-br from-blue-600/10 to-cyan-600/10 rounded-full blur-lg" />
                                 <div className="relative bg-zinc-900/80 border border-zinc-700 rounded-full w-full h-full flex items-center justify-center backdrop-blur-sm overflow-hidden">
                                     {/* Inner glow effect */}
                                     <motion.div
-                                        className="absolute inset-0 bg-gradient-to-t from-blue-500/10 to-transparent"
+                                        className="absolute inset-0 bg-linear-to-t from-blue-500/10 to-transparent"
                                         animate={{ opacity: [0.3, 0.6, 0.3] }}
                                         transition={{ duration: 2, repeat: Infinity }}
                                     />
