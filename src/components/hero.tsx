@@ -371,11 +371,10 @@ export function Hero() {
                             className="mt-8 px-3 py-2 bg-zinc-900/50 border border-zinc-800 rounded-lg inline-flex items-center gap-3 backdrop-blur-sm group transition-all duration-300"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 1.1 }}
+                            transition={{ duration: 0.6 }}
                             whileHover={{
                                 borderColor: 'rgba(59, 130, 246, 1)',
-                                boxShadow: '0 0 25px rgba(59, 130, 246, 0.2)',
-                                scale: 1.02,
+                                boxShadow: '0 0 25px rgba(59, 130, 246, 0.2)'
                             }}
                         >
                             <code className="text-sm font-mono text-zinc-400">
@@ -389,18 +388,18 @@ export function Hero() {
                                     {copied ? (
                                         <motion.div
                                             key="check"
-                                            initial={{ scale: 0.8, opacity: 0, rotate: -180 }}
-                                            animate={{ scale: 1, opacity: 1, rotate: 0 }}
-                                            exit={{ scale: 0.8, opacity: 0, rotate: 180 }}
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
                                         >
                                             <Check className="w-4 h-4 text-emerald-400" />
                                         </motion.div>
                                     ) : (
                                         <motion.div
                                             key="copy"
-                                            initial={{ scale: 0.8, opacity: 0 }}
-                                            animate={{ scale: 1, opacity: 1 }}
-                                            exit={{ scale: 0.8, opacity: 0 }}
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
                                             whileHover={{ scale: 1.2 }}
                                         >
                                             <Copy className="w-4 h-4" />
