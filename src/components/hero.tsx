@@ -162,7 +162,7 @@ function CursorLight() {
 // Hexagon grid pattern
 function HexGrid() {
     return (
-        <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
+        <svg className="absolute inset-0 w-full h-full opacity-[0.05]" xmlns="http://www.w3.org/2000/svg">
             <defs>
                 <pattern id="hexagons" width="50" height="43.4" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
                     <polygon
@@ -176,6 +176,79 @@ function HexGrid() {
             </defs>
             <rect width="100%" height="100%" fill="url(#hexagons)" />
         </svg>
+    );
+}
+
+// Spotlight component for catchy lighting
+function SpotlightBeam() {
+    return (
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.5 }}
+            className="absolute inset-0 pointer-events-none overflow-hidden"
+        >
+            <motion.div
+                className="absolute -top-[20%] -left-[10%] w-[100%] h-[140%] bg-gradient-radial from-blue-500/10 via-transparent to-transparent blur-[120px] rotate-[15deg]"
+                animate={{
+                    x: ['-10%', '10%', '-10%'],
+                    y: ['-5%', '5%', '-5%'],
+                }}
+                transition={{
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                }}
+            />
+            <motion.div
+                className="absolute top-[10%] -right-[10%] w-[80%] h-[120%] bg-gradient-radial from-cyan-500/5 via-transparent to-transparent blur-[100px] -rotate-[10deg]"
+                animate={{
+                    x: ['5%', '-5%', '5%'],
+                    y: ['5%', '-10%', '5%'],
+                }}
+                transition={{
+                    duration: 25,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 2
+                }}
+            />
+        </motion.div>
+    );
+}
+
+// Animated lighting beams
+function Beams() {
+    const beams = [
+        { initialX: -20, initialY: 10, rotate: 35, duration: 12, delay: 0 },
+        { initialX: 110, initialY: 40, rotate: -45, duration: 15, delay: 5 },
+        { initialX: -10, initialY: 70, rotate: 25, duration: 18, delay: 2 },
+    ];
+
+    return (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {beams.map((beam, i) => (
+                <motion.div
+                    key={i}
+                    className="absolute h-[2px] w-[600px] bg-linear-to-r from-transparent via-blue-400/20 to-transparent blur-[2px]"
+                    style={{
+                        left: `${beam.initialX}%`,
+                        top: `${beam.initialY}%`,
+                        rotate: `${beam.rotate}deg`,
+                    }}
+                    animate={{
+                        x: beam.initialX < 50 ? ['0vw', '120vw'] : ['0vw', '-120vw'],
+                        opacity: [0, 1, 1, 0],
+                    }}
+                    transition={{
+                        duration: beam.duration,
+                        repeat: Infinity,
+                        delay: beam.delay,
+                        ease: "linear",
+                    }}
+                />
+            ))}
+        </div>
     );
 }
 
@@ -214,6 +287,10 @@ export function Hero() {
             {/* Cursor following light */}
             <CursorLight />
 
+            {/* Spotlight and Lighting Beams */}
+            <SpotlightBeam />
+            <Beams />
+
             {/* Hexagon grid background */}
             <HexGrid />
 
@@ -222,28 +299,34 @@ export function Hero() {
                 {/* Base gradient mesh */}
                 <div className="absolute inset-0 bg-linear-to-br from-blue-950/40 via-black to-cyan-950/30" />
 
-                {/* Radial gradients from corners */}
-                <div className="absolute top-0 left-0 w-[60%] h-[60%] bg-gradient-radial from-blue-600/15 via-blue-600/5 to-transparent blur-3xl" />
-                <div className="absolute bottom-0 right-0 w-[60%] h-[60%] bg-gradient-radial from-cyan-600/15 via-cyan-600/5 to-transparent blur-3xl" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] bg-gradient-radial from-blue-500/10 via-transparent to-transparent blur-2xl" />
+                {/* Main highlights */}
+                <div className="absolute top-[-10%] left-[-5%] w-[60%] h-[60%] bg-blue-600/10 blur-[120px] rounded-full" />
+                <div className="absolute bottom-[-10%] right-[-5%] w-[60%] h-[60%] bg-cyan-600/10 blur-[120px] rounded-full" />
 
-                {/* Animated subtle pulse */}
+                {/* Moving light blobs */}
                 <motion.div
-                    className="absolute top-[20%] right-[15%] w-[40%] h-[40%] bg-gradient-radial from-blue-500/20 via-blue-500/5 to-transparent blur-[100px] rounded-full"
+                    className="absolute top-[20%] right-[15%] w-[40%] h-[40%] bg-blue-500/20 blur-[100px] rounded-full"
                     animate={{
                         scale: [1, 1.2, 1],
-                        opacity: [0.3, 0.5, 0.3],
+                        opacity: [0.4, 0.7, 0.4],
+                        x: [0, 50, 0],
+                        y: [0, -30, 0],
                     }}
-                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                    transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
                 />
                 <motion.div
-                    className="absolute bottom-[25%] left-[20%] w-[35%] h-[35%] bg-gradient-radial from-cyan-500/15 via-cyan-500/3 to-transparent blur-[100px] rounded-full"
+                    className="absolute bottom-[25%] left-[20%] w-[35%] h-[35%] bg-cyan-500/15 blur-[100px] rounded-full"
                     animate={{
                         scale: [1, 1.3, 1],
-                        opacity: [0.2, 0.4, 0.2],
+                        opacity: [0.3, 0.6, 0.3],
+                        x: [0, -40, 0],
+                        y: [0, 40, 0],
                     }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                    transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
                 />
+
+                {/* Center glow behind content */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-gradient-radial from-blue-900/10 via-transparent to-transparent blur-[150px]" />
 
                 {/* Diagonal gradient overlay */}
                 <div className="absolute inset-0 bg-linear-to-tr from-blue-950/20 via-transparent to-cyan-950/20" />
