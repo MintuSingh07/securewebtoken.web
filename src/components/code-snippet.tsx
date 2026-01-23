@@ -10,34 +10,28 @@ export function CodeSnippet() {
 
     const signCode = `import { sign } from "secure-web-token";
 
-const secret = "my-super-secret";
+const SECRET = "super-secret-key";
 
-// Auto device registration + server session
 const { token, sessionId } = sign(
   { userId: 1, role: "admin" },
-  secret,
-  { fingerprint: true, store: "memory", expiresIn: 3600 }
-);
-
-console.log("TOKEN:", token);
-console.log("SESSION ID (internal):", sessionId);`;
+  SECRET,
+  {
+    fingerprint: true,
+    store: "memory",
+    expiresIn: 3600,
+  }
+);`;
 
     const verifyCode = `import { verify, getStore } from "secure-web-token";
 
-// Get the store instance
 const store = getStore("memory");
+const session = store.getSession(sessionId);
 
-try {
-  const payload = verify(token, secret, {
-    sessionId,          // Server-side session ID
-    fingerprint: "abc", // Device fingerprint
-    store: "memory"     // Must match the store
-  });
-
-  console.log("USER DATA:", payload.data);
-} catch (err) {
-  console.error("AUTH ERROR:", err.message);
-}`;
+const payload = verify(token, SECRET, {
+  sessionId,
+  fingerprint: session.fingerprint,
+  store: "memory",
+});`;
 
     const installCode = `npm install secure-web-token`;
 
@@ -272,7 +266,7 @@ const { sign, verify, getStore } = require("secure-web-token");`;
                                 >
                                     <CodeBlock
                                         code={activeTab === "sign" ? signCode : verifyCode}
-                                        filename={activeTab === "sign" ? "auth.ts" : "middleware.ts"}
+                                        filename={activeTab === "sign" ? "sign.ts" : "verify.ts"}
                                         id={activeTab}
                                     />
                                 </motion.div>
