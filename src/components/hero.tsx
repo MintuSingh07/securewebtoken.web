@@ -441,12 +441,14 @@ export function Hero() {
                                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </motion.a>
                             <motion.a
-                                href="#docs"
+                                href="https://www.npmjs.com/package/secure-web-token"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="px-8 py-4 bg-zinc-900 border border-zinc-800 hover:border-blue-500 hover:bg-zinc-800 text-white rounded-full font-bold transition-all relative overflow-hidden group hover:shadow-[0_0_25px_rgba(59,130,246,0.3)]"
                                 whileHover={{ y: -2 }}
                                 whileTap={{ scale: 0.98 }}
                             >
-                                View Documentation
+                                View on NPM
                             </motion.a>
                         </motion.div>
 

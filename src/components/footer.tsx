@@ -1,9 +1,16 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Shield, Github, Twitter, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
 
 export function Footer() {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     return (
         <footer className="bg-black border-t border-zinc-800 py-12">
             <div className="container mx-auto px-6">
@@ -54,7 +61,7 @@ export function Footer() {
 
                 <div className="pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6">
                     <p className="text-zinc-600 text-xs">
-                        © {new Date().getFullYear()} Secure Web Token. All rights reserved.
+                        © {mounted ? new Date().getFullYear() : "2026"} Secure Web Token. All rights reserved.
                     </p>
                     <div className="flex items-center gap-6">
                         <a href="#" className="text-zinc-500 hover:text-white transition-colors"><Twitter className="w-5 h-5" /></a>
