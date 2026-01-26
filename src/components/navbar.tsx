@@ -52,7 +52,7 @@ export function Navbar() {
                         </Link>
                     ))}
                     <a
-                        href="https://github.com"
+                        href="https://github.com/MintuSingh07/node-securewebtoken"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-4 py-2 rounded-full text-sm font-medium text-zinc-200 hover:bg-zinc-800 hover:border-blue-500/50 transition-all"
@@ -93,7 +93,7 @@ export function Navbar() {
                             ))}
                             <hr className="border-zinc-800" />
                             <a
-                                href="https://github.com"
+                                href="https://github.com/MintuSingh07/node-securewebtoken"
                                 className="flex items-center gap-2 text-zinc-200"
                                 onClick={() => setMobileMenuOpen(false)}
                             >

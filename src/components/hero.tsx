@@ -411,7 +411,7 @@ export function Hero() {
                                     backgroundPosition: { duration: 5, repeat: Infinity, ease: "linear" }
                                 }}
                             >
-                                Secure Web Token
+                                Secure Web Token (SWT)
                             </motion.span>
                         </h1>
 
@@ -421,8 +421,9 @@ export function Hero() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.7 }}
                         >
-                            Device-bound, server-side session tokens with AES-256-GCM encryption.
-                            Unlike JWT, SWT payloads are fully encrypted—not just Base64 encoded. Prevent token theft and unauthorized reuse.
+                            The ultimate <strong>JWT alternative</strong> for modern authentication.
+                            Device-bound, server-side session tokens with <strong>AES-256-GCM encryption</strong>.
+                            Prevent token theft, account sharing, and unauthorized reuse with hardware-level security fingerprints.
                         </motion.p>
 
                         <motion.div

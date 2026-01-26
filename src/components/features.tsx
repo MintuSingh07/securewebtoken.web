@@ -62,7 +62,8 @@ export function Features() {
                         transition={{ duration: 0.5, delay: 0.1 }}
                         className="text-zinc-400 max-w-2xl mx-auto"
                     >
-                        Traditional JWTs are only Base64 encoded—anyone can decode them. SWT encrypts everything with AES-256-GCM and binds tokens to devices.
+                        Traditional JSON Web Tokens (JWT) are only Base64 encoded—making them easy to decode and vulnerable to theft.
+                        <strong>Secure Web Token (SWT)</strong> encrypts every payload with <strong>AES-256-GCM</strong> and strictly binds tokens to verified devices.
                     </motion.p>
                 </div>
 

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Shield, Github, Twitter, Linkedin, Mail } from "lucide-react";
+import { SiNpm } from "react-icons/si";
 import Link from "next/link";
 
 export function Footer() {
@@ -64,10 +65,10 @@ export function Footer() {
                         © {mounted ? new Date().getFullYear() : "2026"} Secure Web Token. All rights reserved.
                     </p>
                     <div className="flex items-center gap-6">
-                        <a href="#" className="text-zinc-500 hover:text-white transition-colors"><Twitter className="w-5 h-5" /></a>
-                        <a href="#" className="text-zinc-500 hover:text-white transition-colors"><Github className="w-5 h-5" /></a>
-                        <a href="#" className="text-zinc-500 hover:text-white transition-colors"><Linkedin className="w-5 h-5" /></a>
-                        <a href="#" className="text-zinc-500 hover:text-white transition-colors"><Mail className="w-5 h-5" /></a>
+                        <a target="_blank" rel="noopener noreferrer" href="https://x.com/securewebtoken" className="text-zinc-500 hover:text-[#1DA1F2] transition-colors"><Twitter className="w-5 h-5" /></a>
+                        <a target="_blank" rel="noopener noreferrer" href="https://github.com/MintuSingh07/node-securewebtoken" className="text-zinc-500 hover:text-white transition-colors"><Github className="w-5 h-5" /></a>
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/mintu-singh-z/" className="text-zinc-500 hover:text-[#0A66C2] transition-colors"><Linkedin className="w-5 h-5" /></a>
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.npmjs.com/package/secure-web-token" className="text-zinc-500 hover:text-[#CB3837] transition-colors"><SiNpm className="w-5 h-5" /></a>
                     </div>
                 </div>
             </div>
