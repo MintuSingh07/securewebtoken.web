@@ -8,7 +8,7 @@ import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://secure-web-token.vercel.app"),
+  metadataBase: new URL("https://securewebtoken.vercel.app"),
   title: "SWT - Secure Web Token | Next-Gen Alternative to JWT",
   description: "Secure Web Token (SWT) offers AES-256-GCM encrypted, device-bound session tokens. A more secure, modern alternative to JWT for web authentication.",
   keywords: ["SWT", "Secure Web Token", "JWT alternative", "Authentication", "Session Management", "AES-256-GCM", "Device Binding", "Secure Authentication", "Node.js Auth", "Web Security"],
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "SWT - Secure Web Token | Beyond JWT",
     description: "Device-bound, server-side session tokens with AES-256-GCM encryption. Prevent token theft and unauthorized reuse.",
-    url: "https://secure-web-token.vercel.app",
+    url: "https://securewebtoken.vercel.app",
     siteName: "Secure Web Token",
     images: [
       {

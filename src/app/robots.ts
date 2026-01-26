@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: '/private/',
         },
-        sitemap: 'https://secure-web-token.vercel.app/sitemap.xml',
+        sitemap: 'https://securewebtoken.vercel.app/sitemap.xml',
     }
 }
